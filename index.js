@@ -1,11 +1,16 @@
-const mongoos = require('mongoose');
+const connectDB = require("./startup/db");
+const express = require("express");
+
+const app = express();
+const collections = require("./routes/collections");
 
 
-mongoos
-    .connect('mongodb+srv://mongodb+srv://new-user-01:YSx371pVxKIbHNnb@cluster0.2jmzi.mongodb.net/deck_of_cards?retryWrites=true&w=majority'
-    {useNewUrlParser: true, useUnifiedTopology: true}
-    .then(()=> console.log('Connected to MongoDB...')
-    .catch((err)=> console.log(`Could not connect to MongoDB. ERROR: ${err}`));
+connectDB();
 
+app.use(express.json());
+app.use("/api/collections", collections);
 
-    
+const port = process.env.PORT || 6000;
+app.listen(port, () => {
+  console.log(`Server Start on Port: ${port}`);
+});
