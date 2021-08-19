@@ -1,0 +1,26 @@
+{
+  "name": "youtubebackend",
+  "version": "1.0.0",
+  "description": "Youtube clone. Technology used:  React.js, Node.js, Express.js, MongoDB, Mongoose, CSS, Axios, Postman, YouTube API, Create React App",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asiaromaria/youtubebackend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asiaromaria/youtubebackend/issues"
+  },
+  "homepage": "https://github.com/asiaromaria/youtubebackend#readme",
+  "dependencies": {
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "joi": "^17.4.2",
+    "mongoose": "^5.13.7"
+  }
+}
