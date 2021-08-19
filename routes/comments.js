@@ -10,7 +10,8 @@ router.post("/", async (req, res) => {
     if (error) return res.status(400).send(error);
 
     const comment = new Comment({
-      usercomment: req.body.usercomment,
+      userName: req.body.userName,
+      userComment: req.body.userComment,
     //   answer: req.body.answer,
 
     });
@@ -55,7 +56,8 @@ router.put("/:id", async (req, res) => {
     const comment = await Comment.findByIdAndUpdate(
 req.params.id,
       {
-        usercomment: req.body.usercomment,
+        userName: req.body.userName,
+        userComment: req.body.userComment,
         // answer: req.body.answer,
 
       },

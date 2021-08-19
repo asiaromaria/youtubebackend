@@ -10,8 +10,8 @@ router.post("/", async (req, res) => {
     if (error) return res.status(400).send(error);
 
     const youtubeclone = new Youtubeclone({
-      question: req.body.question,
-      answer: req.body.answer,
+      videoTitle: req.body.videoTitle,
+      description: req.body.description,
 
     });
 
@@ -55,8 +55,9 @@ router.put("/:id", async (req, res) => {
     const youtubeclone = await Youtubeclone.findByIdAndUpdate(
 req.params.id,
       {
-        question: req.body.question,
-        answer: req.body.answer,
+        videoTitle: req.body.videoTitle,
+        description: req.body.description,
+  
 
       },
       { new: true }

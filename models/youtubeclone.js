@@ -11,8 +11,8 @@ const Youtubeclone = mongoose.model('Youtubeclone', youtubecloneSchema);
 
 function validateYoutubeclone (youtubeclone){
   const schema = Joi.object({
-    question: Joi.string().min(2).max(150).required(),
-    answer:Joi.string().required(),
+    videoTitle: Joi.string().min(2).max(150).required(),
+    description: Joi.string().required(),
 
   });
   return schema.validate(youtubeclone);
