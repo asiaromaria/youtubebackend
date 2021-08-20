@@ -1,4 +1,4 @@
-const { Comment, validate } = require("../models/comments");
+const { Comment, Reply, validate } = require("../models/comments");
 const express = require("express");
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
     const comment = new Comment({
       userName: req.body.userName,
       userComment: req.body.userComment,
-    //   answer: req.body.answer,
+    
 
     });
 
@@ -23,6 +23,8 @@ router.post("/", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
 });
+
+
 
 
 router.get("/", async (req, res) => {
@@ -58,7 +60,7 @@ req.params.id,
       {
         userName: req.body.userName,
         userComment: req.body.userComment,
-        // answer: req.body.answer,
+       
 
       },
       { new: true }
@@ -87,5 +89,28 @@ router.delete("/:id", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
 });
+
+//line for the reply
+
+router.post("/:id", async (req, res) => {
+  try {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error);
+
+    const reply = new Reply({
+      userName: req.body.userName,
+      userComment: req.body.userComment,
+    
+
+    });
+
+    await comment.save();
+
+    return res.send(comment);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
 
 module.exports = router;
