@@ -25,7 +25,7 @@ function validateComment (comment){
     userComment: Joi.string().min(2).max(150).required(),
     likes: Joi.number(),
     dislikes: Joi.number(),
-    replies: Joi.replySchema,
+    replies: Joi.array(),
     
 
   });

@@ -12,8 +12,9 @@ router.post("/", async (req, res) => {
     const comment = new Comment({
       userName: req.body.userName,
       userComment: req.body.userComment,
-    
-
+      likes: 0,
+      dislikes: 0,
+      replies: [],
     });
 
     await comment.save();
