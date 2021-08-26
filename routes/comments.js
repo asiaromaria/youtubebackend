@@ -51,6 +51,27 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.post("/:id", async (req, res) => {
+  try {
+    console.log("Hit Post")
+    const comment = await Comment.findByIdAndUpdate(req.params.id)
+    console.log("comment found")
+    const { error } = validateReply(req.body);
+    if (error) return res.status(400).send(error);
+    const reply = new Reply({
+      userName: req.body.userName,
+      userComment: req.body.userComment,
+    });
+    console.log("reply created")
+    comment.replies.push(reply)
+    console.log("reply pushed")
+    await comment.save();
+    return res.send(comment);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
 router.put("/:id", async (req, res) => {
   try {
     const { error } = validate(req.body);
@@ -93,25 +114,6 @@ router.delete("/:id", async (req, res) => {
 
 //line for the reply
 
-router.post("/:id", async (req, res) => {
-  try {
-    const { error } = validate(req.body);
-    if (error) return res.status(400).send(error);
-
-    const reply = new Reply({
-      userName: req.body.userName,
-      userComment: req.body.userComment,
-    
-
-    });
-
-    await comment.save();
-
-    return res.send(comment);
-  } catch (ex) {
-    return res.status(500).send(`Internal Server Error: ${ex}`);
-  }
-});
 
 
 module.exports = router;
