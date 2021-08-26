@@ -9,7 +9,7 @@ function connectDB(){
         .catch((err) => {
             console.log(`Could not connect to MongoDB. Error: ${err}`);
             process.exit(1);
-        
+
         });
 }
 
