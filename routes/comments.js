@@ -1,4 +1,4 @@
-const { Comment, Reply, validate } = require("../models/comments");
+const { Comment, Reply, validateComment, validateReply } = require("../models/comments");
 const express = require("express");
 const router = express.Router();
 
@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { error } = validate(req.body);
+    const { error } = validateComment(req.body);
     if (error) return res.status(400).send(error);
 
     const comment = new Comment({
@@ -24,6 +24,29 @@ router.post("/", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
 });
+// reply
+router.post("/:id", async (req, res) => {
+
+  try {
+    const comment = await Comment.findByIdAndUpdate(req.params.id)
+    const { error } = validateReply(req.body);
+    if (error) return res.status(400).send(error);
+
+    const reply = new Reply({
+      userName: req.body.userName,
+      userComment: req.body.userComment,
+     
+    });
+
+    comment.replies.push(reply)
+    await comment.save();
+
+    return res.send(comment);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
 
 
 
@@ -74,7 +97,7 @@ router.post("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const { error } = validate(req.body);
+    const { error } = validateComment(req.body);
     if (error) return res.status(400).send(error);
 
     const comment = await Comment.findByIdAndUpdate(
@@ -114,6 +137,25 @@ router.delete("/:id", async (req, res) => {
 
 //line for the reply
 
+router.post("/:id", async (req, res) => {
+  try {
+    const { error } = validateReply(req.body);
+    if (error) return res.status(400).send(error);
+
+    const reply = new Reply({
+      userName: req.body.userName,
+      userComment: req.body.userComment,
+    
+
+    });
+
+    await comment.save();
+
+    return res.send(comment);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
 
 
 module.exports = router;
