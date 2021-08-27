@@ -43,7 +43,7 @@ function validateReply (reply){
 
 exports.Reply=Reply;
 exports.Comment = Comment;
-exports.validate = validateComment;
+exports.validateComment = validateComment;
 exports.validateReply= validateReply;
 exports.commentSchema = commentSchema;
 exports.replySchema = replySchema;
